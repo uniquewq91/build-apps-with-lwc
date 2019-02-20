@@ -4,7 +4,17 @@
 		<div class="slds-card__body_inner">
             
             <!-- Start bear list -->
-			<template if:true={bears}>
+			<template if:true={bears.data}>
+
+				<lightning-input type="search"
+					onchange={handleSearchTermChange}
+					variant="label-hidden"
+					class="slds-m-bottom_small"
+					label="Search"
+					placeholder="Search for bears"
+					value={searchTerm}>
+				</lightning-input>
+
 				<lightning-layout multiple-rows="true" pull-to-boundary="small">
                     
 
@@ -12,7 +22,7 @@
                         The template tag with the for:each and for:item directives is used to iterate over the bears records. 
                         Each iteration item is passed to the bear property.
                     -->
-                    <template for:each={bears} for:item="bear">
+                    <template for:each={bears.data} for:item="bear">
                         <!--
                             Each iteration of the template is marked with a special key attribute. 
                             key must have a unique value in the context of the iteration. That is the bear id in our component.
@@ -41,11 +51,18 @@
                     </template>
                     
 				</lightning-layout>
+
+				<!-- No bears found -->
+				<template if:false={hasResults}>
+					<div class="slds-align_absolute-center slds-m-vertical_small">
+						This is beary disturbing, we did not find results...
+					</div>
+				</template>
 			</template>
             <!-- End bear list -->
             
 			<!-- Data failed to load -->
-			<template if:true={error}>
+			<template if:true={bears.error}>
 				<div class="slds-text-color_error">
 					An error occurred while loading the bear list
 				</div>
