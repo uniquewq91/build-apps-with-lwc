@@ -103,7 +103,7 @@ import { LightningElement, track, wire } from 'lwc';
 import searchBears from '@salesforce/apex/BearController.searchBears';
 export default class BearListNav extends NavigationMixin(LightningElement) {
 	@track searchTerm = '';
-	@wire(searchBears, {searchTerm: '$searchTerm'})
+	@wire(searchBears, {searchTermText: '$searchTerm'})
 	bears;
 	connectedCallback() {
 		loadStyle(this, ursusResources + '/style.css');
